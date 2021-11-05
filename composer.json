@@ -1,0 +1,62 @@
+{
+    "name": "alinrzv/laravel-subscriptions",
+    "description": "A simple subscriptions package for laravel",
+    "keywords": [
+        "laravel",
+        "laravel-subscriptions",
+        "subscription",
+        "intervals",
+        "plan",
+        "features",
+        "recurring"
+    ],
+    "homepage": "https://github.com/alinrzv/laravel-subscriptions",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Best Digital",
+            "email": "hidev@bestdigital.ro",
+            "homepage": "https://bestdigital.ro",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1|^8.0",
+        "illuminate/config": "^8.0",
+        "illuminate/database": "^8.0",
+        "illuminate/support": "^8.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.2",
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BestDigital\\LaravelSubscriptions\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BestDigital\\LaravelSubscriptions\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BestDigital\\LaravelSubscriptions\\LaravelSubscriptionsServiceProvider"
+            ],
+            "aliases": {
+                "LaravelSubscriptions": "BestDigital\\LaravelSubscriptions\\LaravelSubscriptionsFacade"
+            }
+        }
+    }
+}
