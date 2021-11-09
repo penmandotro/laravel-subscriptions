@@ -105,6 +105,73 @@ $plan->isFree(); // return false;
 $plan->isNotFree(); // return true; 
 ```
 
+### Get consumable features & Consume Feature
+
+```
+
+<?php 
+
+use App\User;
+use BestDigital\LaravelSubscriptions\Entities\Plan;
+use BestDigital\LaravelSubscriptions\Entities\PlanFeature;
+use BestDigital\LaravelSubscriptions\Entities\PlanConsumable;
+use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
+
+class MyCustomController extends Controller
+{
+
+public function getUserConsumables(){
+
+    $user = auth()->user();
+    
+    $consumables = array();
+    
+    if($user->hasActiveSubscription()){
+         
+         # get array of consumables
+         # defined in vendor package /src/Traits/HasSubscriptions.php
+         $consumables =  $user->getConsumables();
+
+    }
+    
+    return $consumables;
+
+}
+
+public function testConsumeFeature() {
+	    
+        $code = "credits"; // feature code example
+        $qty = "100"; // feature value example 
+        
+		$user = auth()->user();
+	    
+        # check first if user has active subscription
+        if($user->hasActiveSubscription()){
+            
+            # feature check is done inside vendor package /src/Traits/HasSubscriptions.php
+            # consumeFeature > returns false if : 
+            # - subscription has no features
+            # - $code does not exist in features list
+            # - $qty quantity is bigger than the existing remaining value in database
+            
+            if($reqconsume = $user->consumeFeature($code,$qty)){
+                return response()->json(array('success'=>'Feature consumed successfully!'));
+            }else {
+                return response()->json(array('error'=>'Failed consuming qty!'));
+            }
+        
+        }
+        else {
+                return response()->json(array('error'=>'No active subscription!'));
+            }
+
+}
+
+
+}
+
+```
+
 ### An user can subscribe to a plan
 ```php
 <?php
