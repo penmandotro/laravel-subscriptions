@@ -6,11 +6,10 @@ All ideas are welcome, please send your issue in: [Send your issues in here](htt
 
 ## Features Overview
 
-- Create plans and his features or consumables.
+- Create plans with Features & Consumable features
 - Manage your plans: get all plans, disable, delete, etc.
 - Your user can subscribe to a plan.
 - The user can renew, cancel, upgrade or downgrade his subscription.
-- Features & Consumable features 
 - Group your plans now is very simple.
 - Let your users enjoy some free_days on a plan subscription, EX: before consuming features.
 - A lot more to come, keep close.
