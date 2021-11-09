@@ -51,7 +51,8 @@ php artisan migrate
 
 ## Features Overview
 
-- Create plans and his features or consumables. (consumables is in development)
+- Create plans and his features or consumables.
+- Finished features CONSUMABLES processing
 - Manage your plans: get all plans, disable, delete, etc.
 - Your user can subscribe to a plan.
 - The user can renew, cancel, upgrade or downgrade his subscription.
