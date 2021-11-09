@@ -109,6 +109,65 @@ $plan->isFree(); // return false;
 $plan->isNotFree(); // return true; 
 ```
 
+### Create plan with Group Setup 
+
+```php
+<?php
+namespace App\Http\Controllers;
+
+use App\User;
+use BestDigital\LaravelSubscriptions\Entities\Plan;
+use BestDigital\LaravelSubscriptions\Entities\PlanFeature;
+use BestDigital\LaravelSubscriptions\Entities\PlanConsumable;
+use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
+use BestDigital\LaravelSubscriptions\Entities\Group;
+
+class MyCustomController extends Controller
+{
+    
+	public function initDefault(){
+		
+		$groupName = 'mygroup';
+		
+		# add plan group
+		$plangroup = empty($groupName) ? null : new Group($groupName);
+		
+		$plan = Plan::create(
+		        'name of plan', //name
+		        'this is a description', //description
+		        '10', // free_days 
+		        0, // sort order
+		        true, //is_active bool true
+		        true,// is_default bool true / false
+		        $plangroup // null or GroupContract
+		    );
+		    
+		
+		$features = [
+		    PlanFeature::make('listings', 50),
+		    PlanFeature::make('pictures_per_listing', 10),
+		    PlanFeature::make('listing_duration_days', 30),
+		    PlanFeature::make('listing_title_bold', true),
+		    PlanConsumable::make('number_of_contacts', 10),
+		];
+		
+		// adding features to plan
+		$plan->features()->saveMany($features);
+		
+		$plan->isFree(); // return true;
+		
+		// adding interval of price
+		$interval = PlanInterval::make(PlanInterval::MONTH, 1, 4.90);
+		$plan->setInterval($interval);
+		
+		$plan->isFree(); // return false;
+		$plan->isNotFree(); // return true; 
+
+	}
+
+}
+```
+
 ### Get Consumable Features & Consume Feature ex.
 
 ```php
