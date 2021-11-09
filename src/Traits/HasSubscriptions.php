@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use BestDigital\LaravelSubscriptions\Contracts\PlanContract;
 use BestDigital\LaravelSubscriptions\Contracts\PlanIntervalContract;
 use BestDigital\LaravelSubscriptions\Contracts\SubscriptionContact;
+use BestDigital\LaravelSubscriptions\Entities\PlanFeature as ModelFeature;
 use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
 use BestDigital\LaravelSubscriptions\Entities\Subscription;
 use BestDigital\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
@@ -292,6 +293,77 @@ trait HasSubscriptions
 
     public function getConsumables()
     {
-        //TODO
+   		$currentSubscription = $this->getActiveSubscription();
+		$planConsumables = array();
+		
+		$features = $currentSubscription->plan->features;
+		
+		if($features){
+		
+			$features = $features->toArray();
+			
+			# custom the returned data
+			foreach( $features as $feature ){
+			
+				if($feature['is_consumable'] == 1){
+					unset($feature['created_at']);
+					unset($feature['updated_at']);
+					$planConsumables[] = $feature;
+				}
+			
+			}
+		}
+		
+		return $planConsumables;
     }
+    
+    public function consumeFeature($code,$qty){
+    
+		$currentSubscription = $this->getActiveSubscription();
+		$features = $currentSubscription->plan->features;
+		
+		$withdrawn = false;
+		
+		# if current plan has features
+		if($features){
+		
+			# get array of features from result
+			$features = $features->toArray();
+			
+			# check if feature code exists in current plan features list
+			# array search works with multidimensional array-s as well 
+			if(array_search($code, array_column($features, 'code')) !== false)
+			{
+			
+				# get consumable feature data 
+				$consumable = $currentSubscription->plan->getFeatureByCode($code);
+				
+				# if we have data
+				if($consumable){
+				
+					// do the consume process
+					$feature_find = ModelFeature::where("code",$code)
+						     ->where("plan_id",$currentSubscription->plan->id)->first();
+					
+					# make sure we have something to withdraw from value a.k.a qty
+					# and is not greater than our remaining qty
+					if($qty <= $feature_find->value){
+						$final_qty = ($feature_find->value - $qty);
+						
+						# make changes to value & save to db
+						$feature_find->value = $final_qty;
+						$feature_find->save();
+						
+						# consume successfull
+						$withdrawn = true;
+					}
+				
+				}
+			
+			}
+		}
+		
+		return $withdrawn;
+		
+    	}
 }

@@ -11,6 +11,12 @@ trait HasFeatures
     /**
      * @param  PlanFeature|Model  $feature
      */
+     
+    public function saveFeature(PlanFeature $feature)
+    {
+        $this->features()->save($feature);
+    }
+    
     public function addFeature(PlanFeature $feature)
     {
         $this->features()->save($feature);
