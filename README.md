@@ -109,7 +109,7 @@ $plan->isFree(); // return false;
 $plan->isNotFree(); // return true; 
 ```
 
-### Create plan with Group Setup 
+### Create a plan with Group Setup 
 
 ```php
 <?php
@@ -255,7 +255,7 @@ $currentSubscription = $user->getActiveSubscription(); // return Subscription ob
 
 ## Plan free_days > Check Subscription free days
 ## Use this to check if subscription is in its free days period
-- (1st Rulle) Use it for a Plan that has free_days setup AND a PlanInterval with price bigger than 0.
+- (1st Rulle) Use it for a Plan that has "free_days" value other than 0 setup AND a PlanInterval with price bigger than 0.
 - Returns TRUE (meaning subscription is free), if subscription plan has free_days setup but active PlanInterval price is 0.
 - Returns TRUE (meaning subscription is free), if it meets (1st Rulle) AND if the subscription plan is in its free days range,
   Meaning (days since subscribed untill Today) <= (is lower or equal) than/with plan free_days.
