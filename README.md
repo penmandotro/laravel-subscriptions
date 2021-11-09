@@ -1,19 +1,18 @@
 # Laravel Subscriptions
 
 A Subscriptions package for laravel.
+All ideas are welcome, please send your issue in: [Send your issues in here](https://github.com/alinrzv/laravel-subscriptions/issues/new)
 
 ## Features Overview
 
 - Create plans and his features or consumables.
-- Finished features CONSUMABLES processing
 - Manage your plans: get all plans, disable, delete, etc.
 - Your user can subscribe to a plan.
 - The user can renew, cancel, upgrade or downgrade his subscription.
+- Features & Consumable features 
 - Group your plans now is very simple.
 - Let your users enjoy some free_days on a plan subscription, EX: before consuming features.
-- A lot more
-
-All ideas are welcome, please send your issue in: [Send your issues in here](https://github.com/alinrzv/laravel-subscriptions/issues/new)
+- A lot more to come, keep close.
 
 ## Installation
 
