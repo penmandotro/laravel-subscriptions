@@ -197,10 +197,9 @@ $currentSubscription = $user->getActiveSubscription(); // return Subscription ob
 
 ## Plan free_days > Check Subscription free days
 ## Use this to check if subscription is in its free days period
-- Use it for a Plan that has free_days setup 
-- Returns TRUE by default if plan does not have a free_days setup , means subscription is free.
-- Returns TRUE by default if plan does have free_days setup but plan price interval is 0 , means subscription is free.
-- Returns FALSE if the plan has free days setup BUT Subscription days (days since subscribed untill Today) > surpassed the plan free_days.
+- (1st Rulle) Use it for a Plan that has free_days setup AND a PlanInterval with price bigger than 0.
+- Returns FALSE by default if it does not meet 1st Rulle Requirements.
+- Returns TRUE if the subscription plan is in its free days range, Meaning (days since subscribed untill Today) <= (is lower or equal) than/with plan free_days.
 
 ```php
 <?php 
@@ -215,32 +214,25 @@ use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
 class MyCustomController extends Controller
 {
 
-public function TestcheckUserSubscriptionDays(){
-
-    $user = auth()->user();
-    
-    if($user->hasActiveSubscription()){
-
-	# SubsCheckFreeDays defined in vendor package /src/Traits/HasSubscriptions.php
-	# SubsCheckFreeDays > returns false if : 
-	# - The plan has free days setup BUT Subscription days (since subscribed untill Today) > surpassed the plan free_days.
-        
-	if($user->SubsCheckFreeDays()){
-		return response()->json(array('success'=>'Subscription is free!'));
-	}else {
-		return response()->json(array('error'=>'Subscription has passed plan free days!'));
+	public function TestcheckUserSubscriptionDays(){
+	
+	    $user = auth()->user();
+	    
+	    if($user->hasActiveSubscription()){
+	
+		# SubsCheckFreeDays defined in vendor package /src/Traits/HasSubscriptions.php
+		if($user->SubsCheckFreeDays()){
+			// user is in free use :D , do stuff
+		}else {
+			// user is in paid mode , ex: consume features 
+			$code = "credits"; // feature code example
+		        $qty = "100"; // feature value example 
+			$user->consumeFeature($code,$qty);
+		}
+	
+	    }
+	
 	}
-
-    }
-    else {
-        return response()->json(array('error'=>'No active subscription!'));
-    }
-
-    
-    return $consumables;
-
-}
-
 
 }
 

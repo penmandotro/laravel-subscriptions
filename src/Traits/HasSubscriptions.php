@@ -369,47 +369,44 @@ trait HasSubscriptions
     */
     public function SubsCheckFreeDays(){
     
-	    $currentSubscription = $this->getActiveSubscription();
-	    
-	    $is_active = true; // default true
+	   $currentSubscription = $this->getActiveSubscription();
+	   $is_active = false; // default false
     
-	    if($currentSubscription){
-		    
-		    # check if plan has free days setup 
-		    if($currentSubscription->plan->free_days == 0){ 
-		    // no days setup , still true is free
-		    }else {
-		           
-		           # get plan intervals
-		    	   $getSubscrPlanInterval = $currentSubscription->plan->intervals; 
-		    	   
-		    	   # if it has free days setup but plan has interval and price is 0
-		    	   if($getSubscrPlanInterval && $getSubscrPlanInterval->price == 0){
-		    	   	// no price setup , still true is free subscription
-		    	   }
-		    	   # calculate days since subscription , and compare against plan free days.
-		    	   else {
-		    	    
-				    $subscription_start = $currentSubscription->start_at->toDateTimeString();
-				    $start_date = Carbon::createFromFormat('Y-m-d h:i:s',$subscription_start);
-				    $end_date = Carbon::createFromFormat('Y-m-d h:i:s',date('Y-m-d h:i:s',time()));
-				    
-				    # calculate days since subscription started until today
-				    $daystotal_since_subscribed = $start_date->diffInDays($end_date);
-				    
-				    	if($daystotal_since_subscribed <= $currentSubscription->plan->free_days){
-				    	// days since subscription untill today are lower or equal with plan free days 
-				    	// so this is still active 			    	
-				    	}else {
-				    	$is_active = false;
-				    	}
+           # get plan intervals
+    	   $getSubscrPlanInterval = $currentSubscription->plan->intervals; 
+    	   
+    	   # if plan has interval , is plan interval.
+    	   if($getSubscrPlanInterval){
+    	   
+	    	   # if it has free days setup but plan has interval price 0
+	    	   if($currentSubscription->plan->free_days != 0 && $getSubscrPlanInterval->price<=0){
+	    	   	// no price setup , true is free subscription
+	    	   	$is_active = true;
+	    	   }
+	    	   else {
+	    	    	
+	    	    	# if it has free days setup and price is not 0 
+	    	    	# calculate days since subscription , and compare against plan free days.
+	    	    	if($currentSubscription->plan->free_days != 0 && $getSubscrPlanInterval->price > 0){
+	    	    	
+			    $subscription_start = $currentSubscription->start_at->toDateTimeString();
+			    $start_date = Carbon::createFromFormat('Y-m-d h:i:s',$subscription_start);
+			    $end_date = Carbon::createFromFormat('Y-m-d h:i:s',date('Y-m-d h:i:s',time()));
 			    
+			    # calculate days since subscription started until today
+			    $daystotal_since_subscribed = $start_date->diffInDays($end_date);
+			    
+			    	if($daystotal_since_subscribed <= $currentSubscription->plan->free_days){
+			    	// days since subscription untill today are lower or equal with plan free days 
+			    	// true is free subscription 	
+			    	$is_active = true;		    	
+			    	}
+			    	
 			    }
 		    
 		    }
-		    
-	    }
-	    
+    		}
+
 	    return $is_active;
     }
     
