@@ -1,6 +1,7 @@
 # Laravel Subscriptions
 
 A Subscriptions package for laravel.
+
 All ideas are welcome, please send your issue in: [Send your issues in here](https://github.com/alinrzv/laravel-subscriptions/issues/new)
 
 ## Features Overview
