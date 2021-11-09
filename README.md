@@ -83,6 +83,7 @@ use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
 $plan = Plan::create(
         'name of plan', //name
         'this is a description', //description
+        '10', // free_days 
     );
 
 $features = [
@@ -106,7 +107,7 @@ $plan->isFree(); // return false;
 $plan->isNotFree(); // return true; 
 ```
 
-### Get consumable features & Consume Feature
+### Get Consumable features & Consume Feature 
 
 ```
 
@@ -189,6 +190,55 @@ $currentSubscription = $user->getActiveSubscription(); // return Subscription ob
 
 ```
 
+## Plan free_days > Check Subscription free days , 
+## Use this to check if subscription is active , used for a Plan that has free_days setup 
+- Returns TRUE by default if plan does not have a free_days setup , means subscription is active.
+- Returns FALSE if the plan has free days setup BUT Subscription days (days since subscribed untill Today) > surpassed the plan free_days.
+
+```
+
+<?php 
+
+use App\User;
+use BestDigital\LaravelSubscriptions\Entities\Plan;
+use BestDigital\LaravelSubscriptions\Entities\PlanFeature;
+use BestDigital\LaravelSubscriptions\Entities\PlanConsumable;
+use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
+
+class MyCustomController extends Controller
+{
+
+public function TestcheckUserSubscriptionDays(){
+
+    $user = auth()->user();
+    
+    if($user->hasActiveSubscription()){
+
+	# SubsCheckFreeDays defined in vendor package /src/Traits/HasSubscriptions.php
+	# SubsCheckFreeDays > returns false if : 
+	# - The plan has free days setup BUT Subscription days (since subscribed untill Today) > surpassed the plan free_days.
+        
+	if($user->SubsCheckFreeDays()){
+		return response()->json(array('success'=>'Subscription is active!'));
+	}else {
+		return response()->json(array('error'=>'Subscription has passed plan free days!'));
+	}
+
+    }
+    else {
+        return response()->json(array('error'=>'No active subscription!'));
+    }
+
+    
+    return $consumables;
+
+}
+
+
+}
+
+```
+
 ## Upgrade or Downgrade Subscription
 ````php
 <?php
@@ -213,6 +263,8 @@ $user->unsubscribe();
 // the subscription end now
 $user->forceUnsubscribe();
 ````
+
+
 
 ### Testing
 

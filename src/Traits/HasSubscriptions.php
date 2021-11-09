@@ -363,4 +363,49 @@ trait HasSubscriptions
 		return $withdrawn;
 		
     	}
+
+    /* 
+    Check subscription free days 
+    */
+    public function SubsCheckFreeDays(){
+    
+	    $currentSubscription = $this->getActiveSubscription();
+	    
+	    $is_active = true; // default true
+    
+	    if($currentSubscription){
+		    
+		    # check if plan has free days setup 
+		    if($currentSubscription->plan->free_days == 0){ 
+		    // no days setup , still true is active plan
+		    }else {
+		    	    
+		    	    # if we have plan free days setup , 
+		    	    # calculate days since subscription , and compare against plan free days.
+			    $subscription_start = $currentSubscription->start_at->toDateTimeString();
+			    $start_date = Carbon::createFromFormat('Y-m-d h:i:s',$subscription_start);
+			    $end_date = Carbon::createFromFormat('Y-m-d h:i:s',date('Y-m-d h:i:s',time()));
+			    
+			    # calculate days since subscription started until today
+			    $daystotal_since_subscribed = $start_date->diffInDays($end_date);
+			    
+			    # if there is at least 1 day passed , start compare
+			    if($daystotal_since_subscribed>0){
+			    
+			    	if($daystotal_since_subscribed <= $currentSubscription->plan->free_days){
+			    	// days since subscription untill today are lower or equal with plan free days 
+			    	// so this is still active 			    	
+			    	}else {
+			    	$is_active = false;
+			    	}
+			    
+			    }
+		    
+		    }
+		    
+	    }
+	    
+	    return $is_active;
+    }
+    
 }
