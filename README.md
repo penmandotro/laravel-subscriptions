@@ -57,7 +57,7 @@ php artisan migrate
 - Your user can subscribe to a plan.
 - The user can renew, cancel, upgrade or downgrade his subscription.
 - Group your plans now is very simple.
-- Let your users enjoy some free days on a plan, EX: before consuming features.
+- Let your users enjoy some free_days on a plan subscription, EX: before consuming features.
 - A lot more
 
 ## A few examples
