@@ -83,8 +83,8 @@ use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
 $plan = Plan::create(
         'name of plan', //name
         'this is a description', //description
-        1 // sort order
     );
+
 $features = [
     PlanFeature::make('listings', 50),
     PlanFeature::make('pictures_per_listing', 10),

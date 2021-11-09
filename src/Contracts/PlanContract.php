@@ -19,6 +19,7 @@ interface PlanContract
     public static function create(
         string $name,
         string $description,
+        int $free_days,
         int $sort_order,
         bool $is_active = false,
         bool $is_default = false,
