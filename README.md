@@ -57,6 +57,7 @@ php artisan migrate
 - Your user can subscribe to a plan.
 - The user can renew, cancel, upgrade or downgrade his subscription.
 - Group your plans now is very simple.
+- Let your users enjoy some free days on a plan, EX: before consuming features.
 - A lot more
 
 ## A few examples
@@ -75,9 +76,11 @@ class User extends Authenticable
 
 ```php
 <?php
+namespace App\Http\Controllers;
+
 use BestDigital\LaravelSubscriptions\Entities\Plan;
 use BestDigital\LaravelSubscriptions\Entities\PlanFeature;
-use \BestDigital\LaravelSubscriptions\Entities\PlanConsumable;
+use BestDigital\LaravelSubscriptions\Entities\PlanConsumable;
 use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
 
 $plan = Plan::create(
@@ -107,11 +110,11 @@ $plan->isFree(); // return false;
 $plan->isNotFree(); // return true; 
 ```
 
-### Get Consumable features & Consume Feature 
+### Get Consumable Features & Consume Feature ex.
 
-```
-
+```php
 <?php 
+namespace App\Http\Controllers;
 
 use App\User;
 use BestDigital\LaravelSubscriptions\Entities\Plan;
@@ -145,7 +148,7 @@ public function testConsumeFeature() {
         $code = "credits"; // feature code example
         $qty = "100"; // feature value example 
         
-		$user = auth()->user();
+	$user = auth()->user();
 	    
         # check first if user has active subscription
         if($user->hasActiveSubscription()){
@@ -177,9 +180,11 @@ public function testConsumeFeature() {
 ### An user can subscribe to a plan
 ```php
 <?php
+namespace App\Http\Controllers;
+
 use BestDigital\LaravelSubscriptions\Entities\Plan;
 
-$user = \Auth::user();
+$user = auth()->user();
 $plan = Plan::find(1);
 
 $user->subscribeTo($plan);
@@ -190,14 +195,16 @@ $currentSubscription = $user->getActiveSubscription(); // return Subscription ob
 
 ```
 
-## Plan free_days > Check Subscription free days , 
-## Use this to check if subscription is active , used for a Plan that has free_days setup 
-- Returns TRUE by default if plan does not have a free_days setup , means subscription is active.
+## Plan free_days > Check Subscription free days
+## Use this to check if subscription is in its free days period
+- Use it for a Plan that has free_days setup 
+- Returns TRUE by default if plan does not have a free_days setup , means subscription is free.
+- Returns TRUE by default if plan does have free_days setup but plan price interval is 0 , means subscription is free.
 - Returns FALSE if the plan has free days setup BUT Subscription days (days since subscribed untill Today) > surpassed the plan free_days.
 
-```
-
+```php
 <?php 
+namespace App\Http\Controllers;
 
 use App\User;
 use BestDigital\LaravelSubscriptions\Entities\Plan;
@@ -219,7 +226,7 @@ public function TestcheckUserSubscriptionDays(){
 	# - The plan has free days setup BUT Subscription days (since subscribed untill Today) > surpassed the plan free_days.
         
 	if($user->SubsCheckFreeDays()){
-		return response()->json(array('success'=>'Subscription is active!'));
+		return response()->json(array('success'=>'Subscription is free!'));
 	}else {
 		return response()->json(array('error'=>'Subscription has passed plan free days!'));
 	}
