@@ -259,7 +259,7 @@ $currentSubscription = $user->getActiveSubscription(); // return Subscription ob
 - Returns TRUE (meaning subscription is free), if subscription plan has free_days setup but active PlanInterval price is 0.
 - Returns TRUE (meaning subscription is free), if it meets (1st Rulle) AND if the subscription plan is in its free days range,
   Meaning (days since subscribed untill Today) <= (is lower or equal) than/with plan free_days.
-- Returns FALSE by default in all other cases.
+- Returns FALSE by default in all other cases. 
 
 ```php
 <?php 
