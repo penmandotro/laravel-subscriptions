@@ -11,6 +11,7 @@ use BestDigital\LaravelSubscriptions\Contracts\SubscriptionContact;
 #use BestDigital\LaravelSubscriptions\Entities\PlanFeature as ModelFeature;
 use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
 use BestDigital\LaravelSubscriptions\Entities\Subscription;
+use BestDigital\LaravelSubscriptions\Entities\SubscriberConsumable;
 use BestDigital\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
 use BestDigital\LaravelSubscriptions\PlanFeature;
 
@@ -24,9 +25,9 @@ trait HasSubscriptions
     {
         if ($planOrInterval instanceof PlanContract) {
             return $this->subscribeToPlan($planOrInterval);
+        }else {
+            return $this->subscribeToInterval($planOrInterval);
         }
-
-        return $this->subscribeToInterval($planOrInterval);
     }
 
     /**
@@ -67,9 +68,19 @@ trait HasSubscriptions
         } else {
             $end_at = $this->calculateExpireDate($start_at, optional($plan->intervals())->first());
         }
-
+	
         $subscription = Subscription::make($plan, $start_at, $end_at);
         $subscription = $this->subscriptions()->save($subscription);
+	
+	# make sure subscribe to consumables when subscribe to plan
+	if($plan->features){
+		foreach($plan->features as $plan_feature){
+			if($plan_feature->is_consumable == 1){
+				$subscription_consumable = SubscriberConsumable::make($plan_feature, $subscription, $plan_feature->value, $start_at, $end_at);
+			        $subscription_consumable = $subscription_consumable->save($subscription_consumable->toArray());
+		        }
+		}
+	}
 
         return $subscription;
     }
@@ -137,6 +148,18 @@ trait HasSubscriptions
 
         $subscription = Subscription::make($interval->plan, $start_at, $end_at);
         $subscription = $this->subscriptions()->save($subscription);
+        
+        
+        # make sure subscribe to consumables when subscribe to plan
+	if($interval->features){
+		foreach($interval->features as $interval_feature){
+			if($interval_feature->is_consumable == 1){
+				$subscription_consumable = SubscriberConsumable::makeInterval($interval_feature, $subscription, $interval_feature->value, $start_at, $end_at);
+			        $subscription_consumable = $subscription_consumable->save($subscription_consumable->toArray());
+		        }
+		}
+	}
+	
 
         return $subscription;
     }
@@ -291,24 +314,44 @@ trait HasSubscriptions
         return $loadFeatures;
     }
 
-    public function getConsumables()
+    public function getPlanSubscribedConsumables()
     {
    		$currentSubscription = $this->getActiveSubscription();
 		$planConsumables = array();
 		
-		$features = $currentSubscription->plan->features;
+		$consumables = $currentSubscription->getAllConsumableSubscriptions();
+		if($consumables){
 		
-		if($features){
+			$consumables = $consumables->toArray();
+			# custom the returned data
+			foreach( $consumables as $consumable ){
+					unset($consumable['created_at']);
+					unset($consumable['updated_at']);
+					$planConsumables[] = $consumable;
+			}
+		}
 		
-			$features = $features->toArray();
+		return $planConsumables;
+    }
+    
+    public function getCurrentPlanConsumables()
+    {
+   		$currentSubscription = $this->getActiveSubscription();
+		$planConsumables = array();
+		
+		$consumables = $currentSubscription->plan->consumables;
+		
+		if($consumables){
+		
+			$consumables = $consumables->toArray();
 			
 			# custom the returned data
-			foreach( $features as $feature ){
+			foreach( $consumables as $consumable ){
 			
-				if($feature['is_consumable'] == 1){
-					unset($feature['created_at']);
-					unset($feature['updated_at']);
-					$planConsumables[] = $feature;
+				if($consumable['is_consumable'] == 1){
+					unset($consumable['created_at']);
+					unset($consumable['updated_at']);
+					$planConsumables[] = $consumable;
 				}
 			
 			}
@@ -320,43 +363,42 @@ trait HasSubscriptions
     public function consumeFeature($code,$qty){
     
 		$currentSubscription = $this->getActiveSubscription();
-		$features = $currentSubscription->plan->features;
+	
+		# get user consumable by code for current active subscriptions
+		# return first()
+		$consumable = $currentSubscription->getConsumableSubscriptions($code);
+		
+		#$consumable_get = SubscriberConsumable::where("plan_feature_code",$code)->first();
 		
 		$withdrawn = false;
 		
-		# if current plan has features
-		if($features){
+		if($consumable){
 		
-			# get array of features from result
-			$features = $features->toArray();
+			# convert to array of data from result
+			$consumable = $consumable->toArray();
 			
-			# check if feature code exists in current plan features list
-			# array search works with multidimensional array-s as well 
-			if(array_search($code, array_column($features, 'code')) !== false)
+			if(!empty($consumable))
 			{
-			
-				# get consumable feature data 
-				$consumable = $currentSubscription->plan->getFeatureByCode($code);
-				
-				# if we have data
-				if($consumable){
+				# get plan consumable feature data 
+				#$consumable = $currentSubscription->plan->getConsumableByCode($code);
 
-					# make sure we have something to withdraw from value a.k.a qty
-					# and is not greater than our remaining qty
-					if($qty <= $consumable->value){
-					
-						$final_qty = ($consumable->value - $qty);
-						
-						# make changes to value & save to db
-						$consumable->value = $final_qty;
-						$consumable->save();
-						
-						# consume successfull
-						$withdrawn = true;
-					}
+				# make sure we have something to withdraw from value a.k.a qty
+				# and is not greater than our remaining qty
+				if($qty <= $consumable['available']){
 				
+					$final_qty = ($consumable['available'] - $qty);
+					
+					# query consumable for change based on feature id
+					$change_consumable = SubscriberConsumable::find($consumable['plan_feature_id'])->first();
+					# make changes to value & save to db
+					$change_consumable->available = $final_qty;
+					$change_consumable->used = $change_consumable->used + $qty;
+					$change_consumable->save();
+					
+					# consume successfull
+					$withdrawn = true;
 				}
-			
+				
 			}
 		}
 		

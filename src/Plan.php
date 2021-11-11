@@ -9,10 +9,12 @@ use BestDigital\LaravelSubscriptions\Contracts\PlanContract;
 use BestDigital\LaravelSubscriptions\Entities\Group;
 use BestDigital\LaravelSubscriptions\Exceptions\PlanErrorException;
 use BestDigital\LaravelSubscriptions\Traits\HasFeatures;
+use BestDigital\LaravelSubscriptions\Traits\HasConsumables;
 
 abstract class Plan extends Model implements PlanContract
 {
     use HasFeatures;
+    use HasConsumables;
 
     protected $table = 'plans';
 
@@ -189,4 +191,10 @@ abstract class Plan extends Model implements PlanContract
     {
         return $this->hasMany(config('subscriptions.entities.plan_subscription'));
     }
+
+    public function consumables()
+    {
+        return $this->hasMany(config('subscriptions.entities.plan_consumable_features'));
+    }
+    
 }

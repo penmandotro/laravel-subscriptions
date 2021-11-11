@@ -21,6 +21,10 @@ interface SubscriptionContact
     public function getExpirationDate(): ?Carbon;
 
     public function getStartDate(): Carbon;
+    
+    public function getAllConsumableSubscriptions();
+    
+    public function getConsumableSubscriptions();
 
     public function plan();
 

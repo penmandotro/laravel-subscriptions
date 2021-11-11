@@ -40,6 +40,8 @@ interface PlanContract
 
     public function subscriptions();
 
+    public function consumables();
+
     public function setDefault();
 
     public function myGroup(): ?GroupContract;
