@@ -1,3 +1,5 @@
+# DO NOT USE , WORK IN PROGRESS , MAJOR BUGG , WAIT FOR FIX 
+
 # Laravel Subscriptions
 
 A Subscriptions package for laravel.
