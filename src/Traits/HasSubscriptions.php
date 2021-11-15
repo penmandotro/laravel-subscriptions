@@ -226,9 +226,13 @@ trait HasSubscriptions
     {
         $currentSubscription = $this->getActiveSubscription();
         if ($currentSubscription != null) {
+        
+            $this->unsubscribePlanSubscribedConsumables();
+            
             $currentSubscription->end_at = now()->subSecond();
             $currentSubscription->cancelled_at = now();
             $currentSubscription->save();
+            
         }
     }
 
@@ -319,6 +323,21 @@ trait HasSubscriptions
         return $loadFeatures;
     }
 
+    public function unsubscribePlanSubscribedConsumables()
+    {
+   		$currentSubscription = $this->getActiveSubscription();
+		$consumables = $currentSubscription->getAllConsumableSubscriptions();
+		
+		if($consumables){
+			# delete each consumable
+			foreach( $consumables as $consumable ){
+				if($getConsumable = SubscriberConsumable::find($consumable['consumable_subscr_id'])){
+					$getConsumable->delete();
+				}
+			}
+		}
+    }
+
     public function getPlanSubscribedConsumables()
     {
    		$currentSubscription = $this->getActiveSubscription();
@@ -394,7 +413,7 @@ trait HasSubscriptions
 					$final_qty = ($consumable['available'] - $qty);
 					
 					# query consumable for change based on feature id
-					$change_consumable = SubscriberConsumable::find($consumable['plan_feature_id'])->first();
+					$change_consumable = SubscriberConsumable::find($consumable['consumable_subscr_id'])->first();
 					# make changes to value & save to db
 					$change_consumable->available = $final_qty;
 					$change_consumable->used = $change_consumable->used + $qty;
