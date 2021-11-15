@@ -206,16 +206,21 @@ trait HasSubscriptions
             ->exists();
     }
 
-    protected function upgradeTo(PlanIntervalContract $interval): SubscriptionContact
+    public function upgradeTo($planOrInterval): SubscriptionContact
     {
         if (! $this->hasActiveSubscription()) {
             throw new SubscriptionErrorException('You need a subscription for upgrade to other.');
         }
 
         $this->forceUnsubscribe();
-
-        return $this->subscribeToInterval($interval);
+        
+        if ($planOrInterval instanceof PlanContract) {
+            return $this->subscribeToPlan($planOrInterval);
+        }else {
+            return $this->subscribeToInterval($planOrInterval);
+        }
     }
+    
 
     public function forceUnsubscribe()
     {
