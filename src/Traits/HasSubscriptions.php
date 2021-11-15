@@ -206,6 +206,16 @@ trait HasSubscriptions
             ->exists();
     }
 
+    public function hasActiveConsumables(): bool
+    {
+    	if($this->hasActiveSubscription()){
+	$user_subscription = $this->getActiveSubscription();
+	$hasconsumables = $user_subscription->getAllConsumableSubscriptions();
+	if($hasconsumables->isEmpty()){ return false;}
+	else { return true; }
+	}else { return false; }
+    }
+
     public function upgradeTo($planOrInterval): SubscriptionContact
     {
         if (! $this->hasActiveSubscription()) {
