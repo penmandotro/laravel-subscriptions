@@ -1,6 +1,6 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Contracts;
+namespace PenMan\LaravelSubscriptions\Contracts;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
