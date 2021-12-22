@@ -1,6 +1,6 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Exceptions;
+namespace PenMan\LaravelSubscriptions\Exceptions;
 
 class IntervalErrorException extends \Exception
 {
