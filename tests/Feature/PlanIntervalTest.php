@@ -1,11 +1,11 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Feature;
+namespace PenMan\LaravelSubscriptions\Tests\Feature;
 
-use BestDigital\LaravelSubscriptions\Entities\Plan;
-use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
-use BestDigital\LaravelSubscriptions\Exceptions\IntervalErrorException;
-use BestDigital\LaravelSubscriptions\Tests\TestCase;
+use PenMan\LaravelSubscriptions\Entities\Plan;
+use PenMan\LaravelSubscriptions\Entities\PlanInterval;
+use PenMan\LaravelSubscriptions\Exceptions\IntervalErrorException;
+use PenMan\LaravelSubscriptions\Tests\TestCase;
 
 class PlanIntervalTest extends TestCase
 {
