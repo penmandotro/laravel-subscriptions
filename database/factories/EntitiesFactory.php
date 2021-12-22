@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$factory->define(\BestDigital\LaravelSubscriptions\Tests\Entities\User::class, function (Faker\Generator $faker) {
+$factory->define(\PenMan\LaravelSubscriptions\Tests\Entities\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -12,7 +12,7 @@ $factory->define(\BestDigital\LaravelSubscriptions\Tests\Entities\User::class, f
     ];
 });
 
-$factory->define(\BestDigital\LaravelSubscriptions\Entities\Plan::class, function (Faker\Generator $faker) {
+$factory->define(\PenMan\LaravelSubscriptions\Entities\Plan::class, function (Faker\Generator $faker) {
     return [
         'name'          => $faker->word,
         'description'   => $faker->sentence,
