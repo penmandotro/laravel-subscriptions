@@ -1,10 +1,10 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Entities;
+namespace PenMan\LaravelSubscriptions\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use BestDigital\LaravelSubscriptions\Contracts\PlanIntervalContract;
-use BestDigital\LaravelSubscriptions\Exceptions\IntervalErrorException;
+use PenMan\LaravelSubscriptions\Contracts\PlanIntervalContract;
+use PenMan\LaravelSubscriptions\Exceptions\IntervalErrorException;
 
 class PlanInterval extends Model implements PlanIntervalContract
 {
