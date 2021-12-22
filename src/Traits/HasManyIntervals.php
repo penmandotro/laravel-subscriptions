@@ -1,8 +1,8 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Traits;
+namespace PenMan\LaravelSubscriptions\Traits;
 
-use BestDigital\LaravelSubscriptions\Contracts\PlanIntervalContract;
+use PenMan\LaravelSubscriptions\Contracts\PlanIntervalContract;
 
 trait HasManyIntervals
 {
