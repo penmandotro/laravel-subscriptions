@@ -1,10 +1,10 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Entities;
+namespace PenMan\LaravelSubscriptions\Entities;
 
 use Illuminate\Database\Eloquent\Builder;
-use BestDigital\LaravelSubscriptions\Contracts\GroupContract;
-use BestDigital\LaravelSubscriptions\Contracts\PlanContract;
+use PenMan\LaravelSubscriptions\Contracts\GroupContract;
+use PenMan\LaravelSubscriptions\Contracts\PlanContract;
 
 class Group implements GroupContract
 {
