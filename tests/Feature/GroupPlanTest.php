@@ -1,12 +1,12 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Feature;
+namespace PenMan\LaravelSubscriptions\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use BestDigital\LaravelSubscriptions\Entities\Group;
-use BestDigital\LaravelSubscriptions\Entities\Plan;
-use BestDigital\LaravelSubscriptions\Tests\TestCase;
+use PenMan\LaravelSubscriptions\Entities\Group;
+use PenMan\LaravelSubscriptions\Entities\Plan;
+use PenMan\LaravelSubscriptions\Tests\TestCase;
 
 class GroupPlanTest extends TestCase
 {
