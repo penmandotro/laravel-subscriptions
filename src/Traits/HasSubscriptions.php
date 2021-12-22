@@ -1,19 +1,19 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Traits;
+namespace PenMan\LaravelSubscriptions\Traits;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use BestDigital\LaravelSubscriptions\Contracts\PlanContract;
-use BestDigital\LaravelSubscriptions\Contracts\PlanIntervalContract;
-use BestDigital\LaravelSubscriptions\Contracts\SubscriptionContact;
-#use BestDigital\LaravelSubscriptions\Entities\PlanFeature as ModelFeature;
-use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
-use BestDigital\LaravelSubscriptions\Entities\Subscription;
-use BestDigital\LaravelSubscriptions\Entities\SubscriberConsumable;
-use BestDigital\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
-use BestDigital\LaravelSubscriptions\PlanFeature;
+use PenMan\LaravelSubscriptions\Contracts\PlanContract;
+use PenMan\LaravelSubscriptions\Contracts\PlanIntervalContract;
+use PenMan\LaravelSubscriptions\Contracts\SubscriptionContact;
+#use PenMan\LaravelSubscriptions\Entities\PlanFeature as ModelFeature;
+use PenMan\LaravelSubscriptions\Entities\PlanInterval;
+use PenMan\LaravelSubscriptions\Entities\Subscription;
+use PenMan\LaravelSubscriptions\Entities\SubscriberConsumable;
+use PenMan\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
+use PenMan\LaravelSubscriptions\PlanFeature;
 
 trait HasSubscriptions
 {
