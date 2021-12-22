@@ -1,12 +1,12 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Feature;
+namespace PenMan\LaravelSubscriptions\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use BestDigital\LaravelSubscriptions\Entities\Plan;
-use BestDigital\LaravelSubscriptions\Entities\PlanConsumable;
-use BestDigital\LaravelSubscriptions\Entities\PlanFeature;
-use BestDigital\LaravelSubscriptions\Tests\TestCase;
+use PenMan\LaravelSubscriptions\Entities\Plan;
+use PenMan\LaravelSubscriptions\Entities\PlanConsumable;
+use PenMan\LaravelSubscriptions\Entities\PlanFeature;
+use PenMan\LaravelSubscriptions\Tests\TestCase;
 
 class PlanFeatureTest extends TestCase
 {
