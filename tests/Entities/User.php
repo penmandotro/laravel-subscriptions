@@ -1,9 +1,9 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Entities;
+namespace PenMan\LaravelSubscriptions\Tests\Entities;
 
 use Illuminate\Foundation\Auth\User as Authenticable;
-use BestDigital\LaravelSubscriptions\Traits\HasSubscriptions;
+use PenMan\LaravelSubscriptions\Traits\HasSubscriptions;
 
 class User extends Authenticable
 {
