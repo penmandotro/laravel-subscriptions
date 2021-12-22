@@ -1,6 +1,6 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions;
+namespace PenMan\LaravelSubscriptions;
 
 use Illuminate\Support\ServiceProvider;
 
