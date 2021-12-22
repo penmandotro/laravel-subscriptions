@@ -1,13 +1,13 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests;
+namespace PenMan\LaravelSubscriptions\Tests;
 
 use Faker\Factory as FakerFactory;
 use Faker\Generator as FakerGenerator;
 use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use Orchestra\Testbench\TestCase as Testbench;
-use BestDigital\LaravelSubscriptions\LaravelSubscriptionsServiceProvider;
-use BestDigital\LaravelSubscriptions\Tests\Entities\User;
+use PenMan\LaravelSubscriptions\LaravelSubscriptionsServiceProvider;
+use PenMan\LaravelSubscriptions\Tests\Entities\User;
 
 class TestCase extends Testbench
 {
