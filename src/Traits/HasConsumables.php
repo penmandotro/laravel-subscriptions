@@ -1,10 +1,10 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Traits;
+namespace PenMan\LaravelSubscriptions\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use BestDigital\LaravelSubscriptions\SubscriberConsumable;
+use PenMan\LaravelSubscriptions\SubscriberConsumable;
 
 trait HasConsumables
 {
