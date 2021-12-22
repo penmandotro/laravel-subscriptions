@@ -1,9 +1,9 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Traits;
+namespace PenMan\LaravelSubscriptions\Traits;
 
 use Illuminate\Database\Eloquent\Model;
-use BestDigital\LaravelSubscriptions\Contracts\PlanIntervalContract;
+use PenMan\LaravelSubscriptions\Contracts\PlanIntervalContract;
 
 trait HasSingleInterval
 {
