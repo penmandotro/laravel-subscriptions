@@ -1,5 +1,5 @@
 {
-    "name": "alinrzv/laravel-subscriptions",
+    "name": "penmandotro/laravel-subscriptions",
     "description": "A simple subscriptions package for laravel",
     "keywords": [
         "laravel",
@@ -10,15 +10,15 @@
         "features",
         "recurring"
     ],
-    "homepage": "https://github.com/alinrzv/laravel-subscriptions",
+    "homepage": "https://github.com/penmandotro/laravel-subscriptions",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "Best Digital",
-            "email": "hidev@bestdigital.ro",
-            "homepage": "https://bestdigital.ro",
-            "role": "Developer"
+            "name": "PenMan.ro",
+            "email": "andreiasi.marian@penman.ro",
+            "homepage": "https://penman.ro",
+            "role": "CTO"
         }
     ],
     "require": {
@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "BestDigital\\LaravelSubscriptions\\": "src"
+            "PenMan\\LaravelSubscriptions\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BestDigital\\LaravelSubscriptions\\Tests\\": "tests"
+            "PenMan\\LaravelSubscriptions\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -52,10 +52,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BestDigital\\LaravelSubscriptions\\LaravelSubscriptionsServiceProvider"
+                "PenMan\\LaravelSubscriptions\\LaravelSubscriptionsServiceProvider"
             ],
             "aliases": {
-                "LaravelSubscriptions": "BestDigital\\LaravelSubscriptions\\LaravelSubscriptionsFacade"
+                "PenManSubscriptions": "PenMan\\LaravelSubscriptions\\LaravelSubscriptionsFacade"
             }
         }
     }
