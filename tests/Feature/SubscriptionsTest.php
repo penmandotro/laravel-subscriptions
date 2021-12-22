@@ -1,17 +1,17 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Feature;
+namespace PenMan\LaravelSubscriptions\Tests\Feature;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use BestDigital\LaravelSubscriptions\Entities\Plan;
-use BestDigital\LaravelSubscriptions\Entities\PlanFeature;
-use BestDigital\LaravelSubscriptions\Entities\PlanInterval;
-use BestDigital\LaravelSubscriptions\Entities\Subscription;
-use BestDigital\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
-use BestDigital\LaravelSubscriptions\Tests\Entities\PlanManyIntervals;
-use BestDigital\LaravelSubscriptions\Tests\Entities\User;
-use BestDigital\LaravelSubscriptions\Tests\TestCase;
+use PenMan\LaravelSubscriptions\Entities\Plan;
+use PenMan\LaravelSubscriptions\Entities\PlanFeature;
+use PenMan\LaravelSubscriptions\Entities\PlanInterval;
+use PenMan\LaravelSubscriptions\Entities\Subscription;
+use PenMan\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
+use PenMan\LaravelSubscriptions\Tests\Entities\PlanManyIntervals;
+use PenMan\LaravelSubscriptions\Tests\Entities\User;
+use PenMan\LaravelSubscriptions\Tests\TestCase;
 
 class SubscriptionsTest extends TestCase
 {
