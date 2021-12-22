@@ -7,9 +7,9 @@ return [
     'entities' => [
         'user' => \App\User::class,
         'plan' => \PenMan\LaravelSubscriptions\Entities\Plan::class,
-        'plan_feature' => \BestDigital\LaravelSubscriptions\Entities\PlanFeature::class,
-        'plan_interval' => \BestDigital\LaravelSubscriptions\Entities\PlanInterval::class,
-        'plan_subscription' => \BestDigital\LaravelSubscriptions\Entities\Subscription::class,
+        'plan_feature' => \PenMan\LaravelSubscriptions\Entities\PlanFeature::class,
+        'plan_interval' => \PenMan\LaravelSubscriptions\Entities\PlanInterval::class,
+        'plan_subscription' => \PenMan\LaravelSubscriptions\Entities\Subscription::class,
     ],
     'default_features' => [
         'features' => [
