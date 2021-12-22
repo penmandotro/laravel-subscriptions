@@ -4,12 +4,12 @@ namespace BestDigital\LaravelSubscriptions;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use BestDigital\LaravelSubscriptions\Contracts\GroupContract;
-use BestDigital\LaravelSubscriptions\Contracts\PlanContract;
-use BestDigital\LaravelSubscriptions\Entities\Group;
-use BestDigital\LaravelSubscriptions\Exceptions\PlanErrorException;
-use BestDigital\LaravelSubscriptions\Traits\HasFeatures;
-use BestDigital\LaravelSubscriptions\Traits\HasConsumables;
+use PenMan\LaravelSubscriptions\Contracts\GroupContract;
+use PenMan\LaravelSubscriptions\Contracts\PlanContract;
+use PenMan\LaravelSubscriptions\Entities\Group;
+use PenMan\LaravelSubscriptions\Exceptions\PlanErrorException;
+use PenMan\LaravelSubscriptions\Traits\HasFeatures;
+use PenMan\LaravelSubscriptions\Traits\HasConsumables;
 
 abstract class Plan extends Model implements PlanContract
 {
