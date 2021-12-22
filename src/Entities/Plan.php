@@ -1,9 +1,9 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Entities;
+namespace PenMan\LaravelSubscriptions\Entities;
 
-use BestDigital\LaravelSubscriptions\Plan as PlanBase;
-use BestDigital\LaravelSubscriptions\Traits\HasSingleInterval;
+use PenMan\LaravelSubscriptions\Plan as PlanBase;
+use PenMan\LaravelSubscriptions\Traits\HasSingleInterval;
 
 class Plan extends PlanBase // extends model
 {
