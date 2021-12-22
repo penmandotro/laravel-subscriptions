@@ -1,15 +1,15 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Entities;
+namespace PenMan\LaravelSubscriptions\Entities;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use BestDigital\LaravelSubscriptions\Contracts\PlanContract;
-use BestDigital\LaravelSubscriptions\Contracts\SubscriptionContact;
-use BestDigital\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
-use BestDigital\LaravelSubscriptions\Entities\SubscriberConsumable;
+use PenMan\LaravelSubscriptions\Contracts\PlanContract;
+use PenMan\LaravelSubscriptions\Contracts\SubscriptionContact;
+use PenMan\LaravelSubscriptions\Exceptions\SubscriptionErrorException;
+use PenMan\LaravelSubscriptions\Entities\SubscriberConsumable;
 
 class Subscription extends Model implements SubscriptionContact
 {
