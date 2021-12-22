@@ -1,6 +1,6 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Unit;
+namespace PenMan\LaravelSubscriptions\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
