@@ -1,9 +1,9 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Entities;
+namespace PenMan\LaravelSubscriptions\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use BestDigital\LaravelSubscriptions\PlanFeature as PlanFeatureBase;
+use PenMan\LaravelSubscriptions\PlanFeature as PlanFeatureBase;
 
 class PlanFeature extends PlanFeatureBase
 {
