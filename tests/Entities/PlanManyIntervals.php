@@ -1,9 +1,9 @@
 <?php
 
-namespace BestDigital\LaravelSubscriptions\Tests\Entities;
+namespace PenMan\LaravelSubscriptions\Tests\Entities;
 
-use BestDigital\LaravelSubscriptions\Plan;
-use BestDigital\LaravelSubscriptions\Traits\HasManyIntervals;
+use PenMan\LaravelSubscriptions\Plan;
+use PenMan\LaravelSubscriptions\Traits\HasManyIntervals;
 
 class PlanManyIntervals extends Plan
 {
